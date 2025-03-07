@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 11c1b3066d66d4a329067b49591a05aa
+guid: 1d0fff653090f460b94c83933421a100
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3201165824860650188
-    second: level3_button_0
+      213: 6262721578821677570
+    second: 3of3stars_0
+  - first:
+      213: 2815995539199994411
+    second: 3of3stars_1
+  - first:
+      213: -5718183119866838434
+    second: 3of3stars_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: level3_button_0
+      name: 3of3stars_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 173
-        height: 173
+        x: 6
+        y: 6
+        width: 69
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4358f0e84ac2393d0800000000000000
-      internalID: -3201165824860650188
+      spriteID: 202f6d83818a9e650800000000000000
+      internalID: 6262721578821677570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3of3stars_1
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 6
+        width: 69
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2aa91be50d641720800000000000000
+      internalID: 2815995539199994411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3of3stars_2
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 6
+        width: 69
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e52c3bbafbee4a0b0800000000000000
+      internalID: -5718183119866838434
       vertices: []
       indices: 
       edges: []
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      level3_button_0: -3201165824860650188
+      3of3stars_0: 6262721578821677570
+      3of3stars_1: 2815995539199994411
+      3of3stars_2: -5718183119866838434
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
