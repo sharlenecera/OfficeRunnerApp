@@ -9,7 +9,7 @@ public class LevelMenu : MonoBehaviour
     private void Awake()
     {
         ButtonsToArray();
-        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 2);
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].interactable = i < unlockedLevel;
@@ -30,6 +30,33 @@ public class LevelMenu : MonoBehaviour
         {
             buttons[i] = levelButtons.transform.GetChild(i).gameObject.GetComponent<Button>();
         }
+    }
+
+    public void ToggleLevelInfo(GameObject targetObject)
+    {
+        // Toggle a specific child of all other level objects off
+        // foreach (Transform child in levelButtons.transform)
+        // {
+        //     Transform infoObjects = child.GetChild(0);
+        //     Debug.Log(targetObject.transform.parent.gameObject.name);
+        //     if (infoObjects != null)
+        //     {
+        //         Debug.Log("not null");
+        //         if (child.gameObject.name != targetObject.transform.parent.gameObject.name)
+        //         {
+        //             infoObjects.gameObject.SetActive(false);
+        //             Debug.Log("irrelevant set to false");
+        //         }
+        //         else
+        //         {
+        //             targetObject.SetActive(true);
+        //             // Debug.Log(child.gameObject.name);
+        //             Debug.Log("set to true");
+        //         }
+        //     }
+        // }
+        //Toggle the active state of the target object
+        targetObject.SetActive(!targetObject.activeSelf);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
