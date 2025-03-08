@@ -50,6 +50,7 @@ public class LevelMenu : MonoBehaviour
         // Toggle a specific child of all other level objects off
         foreach (Transform child in levelButtons.transform)
         {
+            // Assuming first child is the info object
             Transform infoObjects = child.GetChild(0);
             Debug.Log(targetObject.transform.parent.gameObject.name);
             if (infoObjects != null)
