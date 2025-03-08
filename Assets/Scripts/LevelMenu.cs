@@ -12,7 +12,20 @@ public class LevelMenu : MonoBehaviour
         int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 2);
         for (int i = 0; i < buttons.Length; i++)
         {
-            buttons[i].interactable = i < unlockedLevel;
+            if (i < unlockedLevel)
+            {
+                buttons[i].interactable = true;
+                // Set the star score to active
+                Transform starScore = buttons[i].transform.Find("Star Score");
+                if (starScore != null)
+                {
+                    starScore.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                buttons[i].interactable = false;
+            }
         }
     }
 
