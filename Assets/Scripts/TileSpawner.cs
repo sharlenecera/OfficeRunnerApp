@@ -35,20 +35,27 @@ public class TileSpawner : MonoBehaviour
         // Spawn the starting straight tiles
         for (int i=0 ; i<tileStartCount ; i++)
         {
-            SpawnTile(startingTile.GetComponent<Tile>(), false);
+            SpawnTile(startingTile.GetComponent<Tile>());
         }
 
         // Spawn a turn tile
-
+        SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>());
     }
 
-    private void SpawnTile(Tile tile, bool spawnObstacles)
+    private void SpawnTile(Tile tile, bool spawnObstacles = false)
     {
         prevTile = GameObject.Instantiate(tile.gameObject, currentTileLocation, Quaternion.identity);
         currentTiles.Add(prevTile);
         // Vector3.Scale multiplies two vectors element-wise
         currentTileLocation += Vector3.Scale(prevTile.GetComponent<Renderer>().bounds.size, currentTileDirection);
         // Example: (3,4,5) * (0,0,1) => (0,0,5)
+    }
+
+    private GameObject SelectRandomGameObjectFromList(List<GameObject> list)
+    {
+        if(list.Count == 0) return null;
+
+        return list[Random.Range(0, list.Count)];
     }
 }
 
