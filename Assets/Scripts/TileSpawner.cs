@@ -44,7 +44,7 @@ public class TileSpawner : MonoBehaviour
         AddNewDirection(Vector3.left);
     }
 
-    private void SpawnTile(Tile tile, bool spawnObstacles = false)
+    private void SpawnTile(Tile tile, bool spawnObstacle = false)
     {
         // Quaternions represent rotations in Unity
         Quaternion newTileRotation = tile.gameObject.transform.rotation * Quaternion.LookRotation
@@ -52,6 +52,9 @@ public class TileSpawner : MonoBehaviour
 
         prevTile = GameObject.Instantiate(tile.gameObject, currentTileLocation, newTileRotation);
         currentTiles.Add(prevTile);
+
+        if (spawnObstacle) SpawnObstacle();
+
         if(tile.type == TileType.STRAIGHT)
         {
             // Vector3.Scale multiplies two vectors element-wise
@@ -62,7 +65,17 @@ public class TileSpawner : MonoBehaviour
 
     private void DeletePreviousTiles()
     {
+        while(currentTiles.Count != 1){ // need to keep the last tile as player is on it while turning
+            GameObject tile = currentTiles[0];
+            currentTiles.RemoveAt(0);
+            Destroy(tile);
+        }
         
+        while(currentObstacles.Count != 0){
+            GameObject obstacle = currentObstacles[0];
+            currentObstacles.RemoveAt(0);
+            Destroy(obstacle);
+        }
     }
 
     public void AddNewDirection(Vector3 direction){
@@ -96,6 +109,19 @@ public class TileSpawner : MonoBehaviour
         }
 
         SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>(), false);
+    }
+
+    private void SpawnObstacle()
+    {
+        if (Random.value > 0.2f) return; // 20% chance of spawning an obstacle
+
+        GameObject obstaclePrefab = SelectRandomGameObjectFromList(obstacles);
+        Quaternion newObjectRotation = obstaclePrefab.gameObject.transform.rotation * Quaternion.LookRotation
+            (currentTileDirection, Vector3.up);
+
+        GameObject obstacle = Instantiate(obstaclePrefab, currentTileLocation, newObjectRotation);
+        currentObstacles.Add(obstacle);
+
     }
 
     private GameObject SelectRandomGameObjectFromList(List<GameObject> list)
