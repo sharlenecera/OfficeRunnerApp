@@ -23,6 +23,7 @@ public class TileSpawner : MonoBehaviour
 
     private List<GameObject> currentTiles;
     private List<GameObject> currentObstacles;
+    private float obstacleSpawnChance = 0.2f; // 20% chance of spawning an obstacle
 
     private void Start()
     {
@@ -39,9 +40,7 @@ public class TileSpawner : MonoBehaviour
         }
 
         // Spawn a turn tile
-        // SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>());
-        SpawnTile(turnTiles[0].GetComponent<Tile>());
-        AddNewDirection(Vector3.left);
+        SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>());
     }
 
     private void SpawnTile(Tile tile, bool spawnObstacle = false)
@@ -55,7 +54,7 @@ public class TileSpawner : MonoBehaviour
 
         if (spawnObstacle) SpawnObstacle();
 
-        if(tile.type == TileType.STRAIGHT)
+        if(tile.type == TileType.STRAIGHT) // Adds offset for next tile location to be spawned
         {
             // Vector3.Scale multiplies two vectors element-wise
             currentTileLocation += Vector3.Scale(prevTile.GetComponent<Renderer>().bounds.size, currentTileDirection);
@@ -65,12 +64,14 @@ public class TileSpawner : MonoBehaviour
 
     private void DeletePreviousTiles()
     {
+        // Remove all tiles but one
         while(currentTiles.Count != 1){ // need to keep the last tile as player is on it while turning
             GameObject tile = currentTiles[0];
             currentTiles.RemoveAt(0);
             Destroy(tile);
         }
         
+        // Remove all obstacles
         while(currentObstacles.Count != 0){
             GameObject obstacle = currentObstacles[0];
             currentObstacles.RemoveAt(0);
@@ -83,6 +84,7 @@ public class TileSpawner : MonoBehaviour
         DeletePreviousTiles(); 
         // to improve this ^, use object tooling so you don't need to create and delete tiles lots of times.
         
+        // Determine placement of next tile using calculations
         Vector3 tilePlacementScale;
         if (prevTile.GetComponent<Tile>().type == TileType.SIDEWAYS)
         {
@@ -98,9 +100,9 @@ public class TileSpawner : MonoBehaviour
             // z is the defined direction which is forward on the straight tile
         }
 
-        currentTileLocation += tilePlacementScale;
+        currentTileLocation += tilePlacementScale; // Change tile location to new location
 
-        // Now spawn the rest of the tiles after this turn tile
+        // Now spawn a random amount of straight tiles after this turn tile
 
         int currentPathLength = Random.Range(minimumStraightTiles, maximumStraightTiles);
         for (int i=0 ; i<currentPathLength ; i++)
@@ -108,12 +110,13 @@ public class TileSpawner : MonoBehaviour
             SpawnTile(startingTile.GetComponent<Tile>(), (i == 0) ? false : true); // do not spawn obstacle on first tile
         }
 
+        // Spawn a random turn tile
         SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>(), false);
     }
 
     private void SpawnObstacle()
     {
-        if (Random.value > 0.2f) return; // 20% chance of spawning an obstacle
+        if (Random.value > obstacleSpawnChance) return;
 
         GameObject obstaclePrefab = SelectRandomGameObjectFromList(obstacles);
         Quaternion newObjectRotation = obstaclePrefab.gameObject.transform.rotation * Quaternion.LookRotation
