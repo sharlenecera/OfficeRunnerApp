@@ -39,7 +39,9 @@ public class TileSpawner : MonoBehaviour
         }
 
         // Spawn a turn tile
-        SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>());
+        // SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>());
+        SpawnTile(turnTiles[0].GetComponent<Tile>());
+        AddNewDirection(Vector3.left);
     }
 
     private void SpawnTile(Tile tile, bool spawnObstacles = false)
@@ -53,6 +55,44 @@ public class TileSpawner : MonoBehaviour
         // Vector3.Scale multiplies two vectors element-wise
         currentTileLocation += Vector3.Scale(prevTile.GetComponent<Renderer>().bounds.size, currentTileDirection);
         // Example: (3,4,5) * (0,0,1) => (0,0,5)
+    }
+
+    private void DeletePreviousTiles()
+    {
+        
+    }
+
+    public void AddNewDirection(Vector3 direction){
+        currentTileDirection = direction;
+        DeletePreviousTiles(); 
+        // to improve this ^, use object tooling so you don't need to create and delete tiles lots of times.
+        
+        Vector3 tilePlacementScale;
+        if (prevTile.GetComponent<Tile>().type == TileType.SIDEWAYS)
+        {
+            tilePlacementScale = Vector3.Scale((prevTile.GetComponent<Renderer>().bounds.size / 2) +
+            (Vector3.one * startingTile.GetComponent<BoxCollider>().size.z / 2), currentTileDirection);
+            // z is the defined direction which is forward on the straight tile
+        }
+        else
+        {
+            // left or right tiles
+            tilePlacementScale = Vector3.Scale((prevTile.GetComponent<Renderer>().bounds.size - (Vector3.one * 2)) +
+            (Vector3.one * startingTile.GetComponent<BoxCollider>().size.z / 2), currentTileDirection);
+            // z is the defined direction which is forward on the straight tile
+        }
+
+        currentTileLocation += tilePlacementScale;
+
+        // Now spawn the rest of the tiles after this turn tile
+
+        int currentPathLength = Random.Range(minimumStraightTiles, maximumStraightTiles);
+        for (int i=0 ; i<currentPathLength ; i++)
+        {
+            SpawnTile(startingTile.GetComponent<Tile>(), (i == 0) ? false : true); // do not spawn obstacle on first tile
+        }
+
+        SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>(), false);
     }
 
     private GameObject SelectRandomGameObjectFromList(List<GameObject> list)
