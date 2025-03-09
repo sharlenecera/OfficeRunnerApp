@@ -52,9 +52,12 @@ public class TileSpawner : MonoBehaviour
 
         prevTile = GameObject.Instantiate(tile.gameObject, currentTileLocation, newTileRotation);
         currentTiles.Add(prevTile);
-        // Vector3.Scale multiplies two vectors element-wise
-        currentTileLocation += Vector3.Scale(prevTile.GetComponent<Renderer>().bounds.size, currentTileDirection);
-        // Example: (3,4,5) * (0,0,1) => (0,0,5)
+        if(tile.type == TileType.STRAIGHT)
+        {
+            // Vector3.Scale multiplies two vectors element-wise
+            currentTileLocation += Vector3.Scale(prevTile.GetComponent<Renderer>().bounds.size, currentTileDirection);
+            // Example: (3,4,5) * (0,0,1) => (0,0,5)
+        }
     }
 
     private void DeletePreviousTiles()
