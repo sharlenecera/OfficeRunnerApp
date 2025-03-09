@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private float playerSpeed;
     private float gravity;
-    private Vector3 movementDirection = Vector3.forwawrd;
+    private Vector3 movementDirection = Vector3.forward;
 
     private PlayerInput playerInput;
     private InputAction turnAction;
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = GetComponent<playerInput>();
+        playerInput = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
         turnAction = playerInput.actions["Turn"];
         jumpAction = playerInput.actions["Jump"];
