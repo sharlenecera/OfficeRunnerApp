@@ -44,7 +44,11 @@ public class TileSpawner : MonoBehaviour
 
     private void SpawnTile(Tile tile, bool spawnObstacles = false)
     {
-        prevTile = GameObject.Instantiate(tile.gameObject, currentTileLocation, Quaternion.identity);
+        // Quaternions represent rotations in Unity
+        Quaternion newTileRotation = tile.gameObject.transform.rotation * Quaternion.LookRotation
+            (currentTileDirection, Vector3.up);
+
+        prevTile = GameObject.Instantiate(tile.gameObject, currentTileLocation, newTileRotation);
         currentTiles.Add(prevTile);
         // Vector3.Scale multiplies two vectors element-wise
         currentTileLocation += Vector3.Scale(prevTile.GetComponent<Renderer>().bounds.size, currentTileDirection);
