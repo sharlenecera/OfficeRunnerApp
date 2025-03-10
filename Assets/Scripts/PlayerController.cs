@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
+namespace RunnerGame.Player {
 // Make sure these two components are attached to the GameObject
 // once this PlayerController script is attached
 [RequireComponent(typeof(CharacterController), typeof(PlayerInput))]
@@ -22,7 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private LayerMask groundLayer;
     // LayerMasks let you specify what layers you want to use
-
+    [SerializeField]
+    private LayerMask turnLayer;
     private float playerSpeed;
     private float gravity;
     private Vector3 movementDirection = Vector3.forward;
@@ -35,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
 
+    [SerializeField]
+    private UnityEvent<Vector3> turnEvent;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -68,7 +73,48 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerTurn(InputAction.CallbackContext context)
     {
+        Vector3? turnPosition = CheckTurn(context.ReadValue<float>());
+        if(!turnPosition.HasValue)
+        {
+            return;
+        }
+        // Turn the player 90 degrees left or right depending on the input (-1 or 1) along the y-axis
+        Vector3 targetDirection = Quaternion.AngleAxis(90 * context.ReadValue<float>(), Vector3.up) *
+            movementDirection;
+        turnEvent.Invoke(targetDirection); // send targetDirection to SpawnManager
+        Turn(context.ReadValue<float>(), turnPosition.Value);
+    }
 
+    // Return value is either Vector3 or null as it has a '?' at the end
+    private Vector3? CheckTurn(float turnValue)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, .1f, turnLayer);
+        if(hitColliders.Length != 0)
+        {
+            Tile tile = hitColliders[0].transform.parent.GetComponent<Tile>();
+            TileType type = tile.type;
+            if ((type == TileType.LEFT && turnValue == -1) ||
+                (type == TileType.RIGHT && turnValue == 1) ||
+                (type == TileType.SIDEWAYS)){
+                return tile.pivot.position;
+            }
+        }
+        return null;
+    }
+
+    private void Turn(float turnValue, Vector3 turnPosition)
+    {
+        // Keep the player at the same height
+        Vector3 tempPlayerPosition = new Vector3(turnPosition.x, transform.position.y, turnPosition.z);
+        // Disable controller to change position
+        controller.enabled = false;
+        transform.position = tempPlayerPosition;
+        controller.enabled = true;
+
+        // Rotate the player
+        Quaternion targetRotation = transform.rotation * Quaternion.Euler(0, 90 * turnValue, 0);
+        transform.rotation = targetRotation;
+        movementDirection = transform.forward.normalized; // gives a vector of length 1 since we only want direction
     }
 
     private void PlayerSlide(InputAction.CallbackContext context)
@@ -124,4 +170,5 @@ public class PlayerController : MonoBehaviour
         }
         return false;
     }
+}
 }
