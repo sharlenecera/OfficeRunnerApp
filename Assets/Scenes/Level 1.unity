@@ -707,7 +707,6 @@ GameObject:
   - component: {fileID: 1997567928}
   - component: {fileID: 1997567927}
   - component: {fileID: 1997567931}
-  - component: {fileID: 1997567930}
   - component: {fileID: 1997567929}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -789,40 +788,6 @@ MonoBehaviour:
   Offset: {x: -0.53, y: 1.36, z: -6.51}
   ApplyAfter: 1
   PreserveComposition: 0
---- !u!114 &1997567930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997567926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d54399b04b4fa48a73e121d4937dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReferenceFrame: 0
-  RecenterTarget: 1
-  PanAxis:
-    Value: 0
-    Center: 0
-    Range: {x: -180, y: 180}
-    Wrap: 1
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
-  TiltAxis:
-    Value: 0
-    Center: 0
-    Range: {x: -70, y: 70}
-    Wrap: 0
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
 --- !u!114 &1997567931
 MonoBehaviour:
   m_ObjectHideFlags: 0
