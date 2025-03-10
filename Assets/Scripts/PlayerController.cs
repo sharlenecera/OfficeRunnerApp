@@ -78,7 +78,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump(InputAction.CallbackContext context)
     {
-
+        if (IsGrounded())
+        {
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * gravity * -3f);
+            controller.Move(playerVelocity * Time.deltaTime);
+        }
     }
 
     private void Update()
