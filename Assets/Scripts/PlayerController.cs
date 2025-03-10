@@ -27,10 +27,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private LayerMask turnLayer;
     [SerializeField]
+    private LayerMask obstacleLayer;
+    [SerializeField]
     private Animator animator;
     [SerializeField]
     private AnimationClip slideAnimationClip;
+    [SerializeField]
     private float playerSpeed;
+    [SerializeField]
+    private float scoreMultiplier = 10f;
     private float gravity;
     private Vector3 movementDirection = Vector3.forward;
     private Vector3 playerVelocity;
@@ -45,9 +50,14 @@ public class PlayerController : MonoBehaviour
     private int slidingAnimationId;
 
     private bool sliding = false;
+    private float score = 0;
 
     [SerializeField]
     private UnityEvent<Vector3> turnEvent;
+    [SerializeField]
+    private UnityEvent<int> gameOverEvent;
+    [SerializeField]
+    private UnityEvent<int> scoreUpdateEvent;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -87,6 +97,8 @@ public class PlayerController : MonoBehaviour
         Vector3? turnPosition = CheckTurn(context.ReadValue<float>());
         if(!turnPosition.HasValue)
         {
+            Debug.Log("Wrong turn");
+            GameOver();
             return;
         }
         // Turn the player 90 degrees left or right depending on the input (-1 or 1) along the y-axis
@@ -169,6 +181,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(!IsGrounded(20f)) // shoots raycast with length 20
+        {
+            Debug.Log("Update");
+            GameOver();
+            return;
+        }
+
+        // Score functionality
+
+        score += scoreMultiplier * Time.deltaTime;
+        scoreUpdateEvent.Invoke((int)score);
+
+        // delta time is time between frames
         controller.Move(transform.forward * playerSpeed * Time.deltaTime);
 
         if (IsGrounded() && playerVelocity.y < 0)
@@ -205,6 +230,23 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over");
+        gameOverEvent.Invoke((int)score);
+        gameObject.SetActive(false);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // checking if the object that the player collided with is in the obstacle layer
+        if (((1 << hit.collider.gameObject.layer) & obstacleLayer) != 0)
+        {
+            Debug.Log("Hit obstacle");
+            GameOver();
+        }
     }
 }
 }
