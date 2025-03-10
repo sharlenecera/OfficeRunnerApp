@@ -196,8 +196,8 @@ public class PlayerController : MonoBehaviour
         raycastOriginFirst -= transform.forward * .2f;
         raycastOriginSecond += transform.forward * .2f;
 
-        Debug.DrawLine(raycastOriginFirst, Vector3.down, Color.green,  2f); // 2 seconds
-        Debug.DrawLine(raycastOriginSecond, Vector3.down, Color.red,  2f); // 2 seconds
+        // Debug.DrawLine(raycastOriginFirst, Vector3.down, Color.green,  2f); // 2 seconds
+        // Debug.DrawLine(raycastOriginSecond, Vector3.down, Color.red,  2f); // 2 seconds
 
         if (Physics.Raycast(raycastOriginFirst, Vector3.down, out RaycastHit hit, length, groundLayer) || 
             Physics.Raycast(raycastOriginSecond, Vector3.down, out RaycastHit hit2, length, groundLayer))
