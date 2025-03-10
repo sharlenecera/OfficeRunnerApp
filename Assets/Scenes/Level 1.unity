@@ -197,7 +197,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 36b0b648b585346d6a98327683c4a4e9, type: 2}
+  - {fileID: 2100000, guid: fce93a4c544d14f03aa7c49bf139e630, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4456064d6650e4664afc0e2ed5bd221f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialPlayerSpeed: 4
+  initialPlayerSpeed: 10
   maximumPlayerSpeed: 30
   playerSpeedIncreaseRate: 0.1
   jumpHeight: 1
@@ -448,13 +448,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838784430}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.52, y: 3.05, z: -9.93}
+  m_LocalRotation: {x: 0.113237135, y: 0, z: 0, w: 0.993568}
+  m_LocalPosition: {x: 0.01, y: 4.730939, z: -8.588278}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 20, z: 0}
 --- !u!114 &838784434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 1997567928}
   - component: {fileID: 1997567927}
   - component: {fileID: 1997567931}
+  - component: {fileID: 1997567932}
   - component: {fileID: 1997567929}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -766,7 +767,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997567926}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.113237135, y: 0, z: 0, w: 0.993568}
   m_LocalPosition: {x: 0.01, y: 1.69, z: -3.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -785,7 +786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Offset: {x: -0.53, y: 1.36, z: -6.51}
+  Offset: {x: 0, y: 1.8, z: -5.72}
   ApplyAfter: 1
   PreserveComposition: 0
 --- !u!114 &1997567931
@@ -800,7 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 1, y: 1, z: 1}
   ShoulderOffset: {x: 0.01, y: 0.2, z: -1.42}
   VerticalArmLength: 0.4
   CameraSide: 1
@@ -814,6 +815,35 @@ MonoBehaviour:
     CameraRadius: 0.2
     DampingIntoCollision: 0
     DampingFromCollision: 0.5
+--- !u!114 &1997567932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997567926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Composition:
+    ScreenPosition: {x: 0, y: -0.2}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 0.5, y: 0.5}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
