@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
     // LayerMasks let you specify what layers you want to use
     [SerializeField]
     private LayerMask turnLayer;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private AnimationClip slideAnimationClip;
     private float playerSpeed;
     private float gravity;
     private Vector3 movementDirection = Vector3.forward;
@@ -38,12 +42,19 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
 
+    private int slidingAnimationId;
+
+    private bool sliding = false;
+
     [SerializeField]
     private UnityEvent<Vector3> turnEvent;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
+
+        slidingAnimationId = Animator.StringToHash("Sliding");
+
         turnAction = playerInput.actions["Turn"];
         jumpAction = playerInput.actions["Jump"];
         slideAction = playerInput.actions["Slide"];
@@ -119,9 +130,34 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerSlide(InputAction.CallbackContext context)
     {
-
+        if(!sliding && IsGrounded())
+        {
+            StartCoroutine(Slide());
+        }
     }
+    
+    // Coroutine is a function that can pause execution until a certain condition is met
+    private IEnumerator Slide()
+    {
+        sliding = true;
 
+        // Shrink the collider (so it does not hit the obstacle when it slides)
+        Vector3 originalControllerCenter = controller.center;
+        Vector3 newControllerCenter = originalControllerCenter;
+        controller.height /= 2;
+        newControllerCenter.y -= controller.height / 2;
+        controller.center = newControllerCenter;
+
+        // Play the sliding animation
+        animator.Play(slidingAnimationId);
+        yield return new WaitForSeconds(slideAnimationClip.length);
+
+        // Set the character controller collider back to normal after sliding
+        controller.height *= 2;
+        controller.center = originalControllerCenter;
+
+        sliding = false;
+    }
     private void PlayerJump(InputAction.CallbackContext context)
     {
         if (IsGrounded())
