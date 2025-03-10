@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private float playerSpeed;
     private float gravity;
     private Vector3 movementDirection = Vector3.forward;
+    private Vector3 playerVelocity;
 
     private PlayerInput playerInput;
     private InputAction turnAction;
@@ -83,10 +84,20 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         controller.Move(transform.forward * playerSpeed * Time.deltaTime);
+
+        if (IsGrounded() && playerVelocity.y < 0)
+        {
+            // if grounded and we have gravity, it might create glitching effect
+            // this also acts as a way to reset gravity on every frame
+            playerVelocity.y = 0f;
+        }
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
     }
 
     // making our own function as the character controller one is unreliable
-    private bool IsGrounded(float length) // length of raycast that we want to cast downwards
+    private bool IsGrounded(float length = .2f) // length of raycast that we want to cast downwards
     {   // raycast is a ray cast in a specific direction
         // Make 2 raycasts in case one hits the mini gap between tiles
 
