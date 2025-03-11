@@ -255,11 +255,13 @@ public class PlayerController : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("Game Over");
-        gameOverEvent.Invoke((int)score);
+        // gameOverEvent.Invoke((int)score);
         gameObject.SetActive(false);
 
         UnlockNewLevel();
-        
+        PlayerPrefs.SetInt("GameOver", 1); // Set the game over state
+        PlayerPrefs.Save();
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
