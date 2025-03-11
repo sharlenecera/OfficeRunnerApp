@@ -23,7 +23,7 @@ public class TileSpawner : MonoBehaviour
 
     private List<GameObject> currentTiles;
     private List<GameObject> currentObstacles;
-    private float obstacleSpawnChance = 0.2f; // 20% chance of spawning an obstacle
+    private float obstacleSpawnChance = 0.4f; // 20% chance of spawning an obstacle
 
     private void Start()
     {
