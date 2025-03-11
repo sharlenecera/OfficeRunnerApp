@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
@@ -256,6 +257,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Game Over");
         gameOverEvent.Invoke((int)score);
         gameObject.SetActive(false);
+
+        UnlockNewLevel();
+        
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -265,6 +269,16 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Hit obstacle");
             GameOver();
+        }
+    }
+
+    void UnlockNewLevel()
+    {
+        if(SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex"))
+        {
+            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 1);
+            PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
+            PlayerPrefs.Save();
         }
     }
 }
