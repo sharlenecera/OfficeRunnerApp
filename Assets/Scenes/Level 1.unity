@@ -276,6 +276,7 @@ MonoBehaviour:
   slideAnimationClip: {fileID: 7400000, guid: d42c20d4df45a460687f9c38c733dd93, type: 2}
   playerSpeed: 0
   scoreMultiplier: 10
+  isGameOver: 0
   turnEvent:
     m_PersistentCalls:
       m_Calls:
