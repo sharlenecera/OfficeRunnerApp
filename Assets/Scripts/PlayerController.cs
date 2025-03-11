@@ -287,7 +287,6 @@ public class PlayerController : MonoBehaviour
         PlayerPrefs.SetInt("GameOver", 1); // Set the game over state
         PlayerPrefs.Save();
         Time.timeScale = 1;
-        SceneManager.LoadSceneAsync("MainMenu");
     }
 
 

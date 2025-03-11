@@ -5,11 +5,37 @@ public class LevelMenu : MonoBehaviour
 {
     public Button[] buttons;
     public GameObject levelButtons;
+    [SerializeField]
+    private int level1Score;
+    [SerializeField]
+    private int level2Score;
+    [SerializeField]
+    private int level3Score;
+    [SerializeField]
+    private int startingUnlockedLevel = 1;
 
     private void Awake()
     {
-        int startingUnlockedLevel = 1;
         ButtonsToArray();
+        GetStarScores();
+        UpdateStarScores();
+    }
+
+    public void OpenLevel(int levelID)
+    {
+        string levelName = "Level " + levelID;
+        SceneManager.LoadScene(levelName);
+    }
+
+    void GetStarScores() // for testing purposes
+    {
+        level1Score = PlayerPrefs.GetInt("Level1Stars", 0);
+        level2Score = PlayerPrefs.GetInt("Level2Stars", 0);
+        level3Score = PlayerPrefs.GetInt("Level3Stars", 0);
+    }
+
+    void UpdateStarScores()
+    {
         int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", startingUnlockedLevel);
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -17,9 +43,20 @@ public class LevelMenu : MonoBehaviour
             {
                 buttons[i].interactable = true;
                 // Set the star score to active
-                Transform starScore = buttons[i].transform.Find("Star Score");
+                Transform starScore = buttons[i].transform.Find("Star Scores");
                 if (starScore != null)
                 {
+                    if (i != unlockedLevel)
+                    {
+                        if (PlayerPrefs.HasKey("Level" + i + "Stars"))
+                        {
+                            int stars = PlayerPrefs.GetInt("Level" + i + "Stars");
+                            for (int j = 0; j < stars; j++)
+                            {
+                                starScore.GetChild(j).gameObject.SetActive(true);
+                            }
+                        }
+                    }
                     starScore.gameObject.SetActive(true);
                 }
             }
@@ -28,12 +65,6 @@ public class LevelMenu : MonoBehaviour
                 buttons[i].interactable = false;
             }
         }
-    }
-
-    public void OpenLevel(int levelID)
-    {
-        string levelName = "Level " + levelID;
-        SceneManager.LoadScene(levelName);
     }
 
     void ButtonsToArray()
@@ -83,6 +114,7 @@ public class LevelMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         
     }
 }

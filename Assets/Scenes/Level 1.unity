@@ -677,9 +677,17 @@ PrefabInstance:
       value: 237
       objectReference: {fileID: 0}
     - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
+      propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
       propertyPath: turnEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1241903572}
+    - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
+      propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
       propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -689,9 +697,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1282004092}
     - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
+      propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 463876216}
+    - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
+      propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
       propertyPath: scoreUpdateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1136878415}
+    - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
+      propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetStarScore
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
+      propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: GameOver, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445941946840954642, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
+      propertyPath: gameOverEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6979860701960651870, guid: 04401696a5917491391bb1ad90f03fe8, type: 3}
       propertyPath: m_Name
       value: Player
