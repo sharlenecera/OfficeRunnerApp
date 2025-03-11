@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
         // Play the sliding animation
         animator.Play(slidingAnimationId);
-        yield return new WaitForSeconds(slideAnimationClip.length);
+        yield return new WaitForSeconds(slideAnimationClip.length / animator.speed);
 
         // Set the character controller collider back to normal after sliding
         controller.height *= 2;
@@ -205,6 +205,18 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity.y += gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        // Player Acceleration Functionality
+        if(playerSpeed < maximumPlayerSpeed)
+        {
+            playerSpeed += Time.deltaTime * playerSpeedIncreaseRate;
+            gravity = initialGravityValue - playerSpeed;
+
+            if(animator.speed < 1.25f)
+            {
+                animator.speed += (1/playerSpeed) * Time.deltaTime;
+            }
+        }
     }
 
     // making our own function as the character controller one is unreliable
