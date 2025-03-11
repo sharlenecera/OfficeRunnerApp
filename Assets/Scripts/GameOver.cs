@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI scoreText;
+    private TextMeshProUGUI winScoreText;
+    [SerializeField]
+    private GameObject gameOverCanvas;
+    [SerializeField]
+    private GameObject winGameOverCanvas;
 
     private int score = 0;
 
@@ -17,7 +21,20 @@ public class GameOver : MonoBehaviour
         //      Time.timeScale = 0f;
         // wont use it though since we disabled the player on game over
         this.score = score;
-        scoreText.text = "Score: " + score.ToString();
+        if (score > 0)
+        {
+            winGameOverCanvas.SetActive(true);
+            winScoreText.text = "Score: " + score.ToString();
+        }
+        else
+        {
+            gameOverCanvas.SetActive(true);
+        }
+    }
+
+    public void Home()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 
     public void AddXP()
