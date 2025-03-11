@@ -9,7 +9,7 @@ public class TileSpawner : MonoBehaviour
     [SerializeField]
     private int minimumStraightTiles = 3; // min number of straight tiles before a turn tile
     [SerializeField]
-    private int maximumStraightTiles = 15; // max number of straight tiles before a turn tile
+    private int maximumStraightTiles = 8; // max number of straight tiles before a turn tile
     [SerializeField]
     private GameObject startingTile;
     [SerializeField]
