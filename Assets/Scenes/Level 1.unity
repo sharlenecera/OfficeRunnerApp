@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 102505861}
   - component: {fileID: 102505860}
   m_Layer: 5
-  m_Name: Sidebar Button
+  m_Name: White Sidebar Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 458304625}
   - component: {fileID: 458304624}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Sidebar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1197,7 +1197,7 @@ GameObject:
   - component: {fileID: 1088288061}
   - component: {fileID: 1088288060}
   m_Layer: 5
-  m_Name: Sidebar Button
+  m_Name: Red Sidebar Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
