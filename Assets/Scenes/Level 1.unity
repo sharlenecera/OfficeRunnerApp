@@ -280,6 +280,7 @@ MonoBehaviour:
   playerSpeed: 0
   scoreMultiplier: 10
   isGameOver: 0
+  timer: {fileID: 1278739488}
   turnEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1072,7 +1073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1009060443
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1337,7 +1338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1136878414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1814,7 +1815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1278739490}
-  remainingTime: 5
+  playerController: {fileID: 30672685}
+  remainingTime: 60
 --- !u!1 &1282004092
 GameObject:
   m_ObjectHideFlags: 0

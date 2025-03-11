@@ -1,13 +1,15 @@
 using UnityEngine;
 using TMPro;
-
+using RunnerGame.Player;
 public class Timer : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI timerText;
     [SerializeField]
-    public float remainingTime;
+    private PlayerController playerController;
 
+    [SerializeField]
+    public float remainingTime = 60;
     void Update()
     {
         if (remainingTime > 0)
@@ -20,6 +22,7 @@ public class Timer : MonoBehaviour
 
             // game over
             timerText.color = Color.red;
+            playerController.GameOver(true);
         }
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);

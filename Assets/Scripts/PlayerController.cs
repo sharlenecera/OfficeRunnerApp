@@ -38,9 +38,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float playerSpeed;
     [SerializeField]
-    private float scoreMultiplier = 10f;
+    private float scoreMultiplier = 294f;
     [SerializeField]
-    private bool isGameOver = false;
+    public bool isGameOver = false;
+    private bool reachedDoor = false;
     private float gravity;
     private Vector3 movementDirection = Vector3.forward;
     private Vector3 playerVelocity;
@@ -186,7 +187,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(!IsGrounded(20f) || isGameOver) // shoots raycast with length 20
+        if(isGameOver) // shoots raycast with length 20
+        {
+            return;
+        }
+        else if(!IsGrounded(20f))
         {
             Debug.Log("Fall off tile");
             GameOver();
@@ -253,20 +258,38 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    private void GameOver()
+    public void GameOver(bool timerFinished=false)
     {
-        isGameOver = true;
-        Debug.Log("Game Over");
-        // gameOverEvent.Invoke((int)score);
         Time.timeScale = 0; // alternative to below
         // gameObject.SetActive(false);
+        int finalScore;
+        float elapsedTime = Time.time;
+        isGameOver = true;
+        Debug.Log("Game Over");
 
-        UnlockNewLevel();
-        PlayerPrefs.SetInt("GameOver", 1); // Set the game over state
-        PlayerPrefs.Save();
-        Time.timeScale = 1;
-        SceneManager.LoadSceneAsync("MainMenu");
+        if (reachedDoor) // won the game
+        {    
+            Debug.Log("elapsed time: " + elapsedTime);
+            Debug.Log("score before calc: " + score);
+
+            // Calculate final score
+            finalScore = Mathf.RoundToInt(score / elapsedTime);
+            Debug.Log("Final Score: " + finalScore);
+            UnlockNewLevel();
+        }
+        else
+        {
+            finalScore = 0;
+            Debug.Log("Failed so score = 0");
+        }
+        gameOverEvent.Invoke(finalScore);
+
+        // PlayerPrefs.SetInt("GameOver", 1); // Set the game over state
+        // PlayerPrefs.Save();
+        // Time.timeScale = 1;
+        // SceneManager.LoadSceneAsync("MainMenu");
     }
+
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -279,6 +302,7 @@ public class PlayerController : MonoBehaviour
         else if (((1 << hit.collider.gameObject.layer) & doorLayer) != 0)
         {
             Debug.Log("Hit door");
+            reachedDoor = true;
             GameOver();
         }
     }
