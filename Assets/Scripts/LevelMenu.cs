@@ -8,8 +8,9 @@ public class LevelMenu : MonoBehaviour
 
     private void Awake()
     {
+        int startingUnlockedLevel = 1;
         ButtonsToArray();
-        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 2);
+        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", startingUnlockedLevel);
         for (int i = 0; i < buttons.Length; i++)
         {
             if (i < unlockedLevel)
