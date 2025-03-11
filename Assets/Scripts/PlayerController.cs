@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private float playerSpeed;
     [SerializeField]
     private float scoreMultiplier = 10f;
+    [SerializeField]
+    private bool isGameOver = false;
     private float gravity;
     private Vector3 movementDirection = Vector3.forward;
     private Vector3 playerVelocity;
@@ -181,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(!IsGrounded(20f)) // shoots raycast with length 20
+        if(!IsGrounded(20f) || isGameOver) // shoots raycast with length 20
         {
             Debug.Log("Fall off tile");
             GameOver();
@@ -193,30 +195,34 @@ public class PlayerController : MonoBehaviour
         score += scoreMultiplier * Time.deltaTime;
         scoreUpdateEvent.Invoke((int)score);
 
-        // delta time is time between frames
-        controller.Move(transform.forward * playerSpeed * Time.deltaTime);
-
-        if (IsGrounded() && playerVelocity.y < 0)
+        // make sure the CharacterController is enabled before calling Move to prevent error
+        if (controller.enabled)
         {
-            // if grounded and we have gravity, it might create glitching effect
-            // this also acts as a way to reset gravity on every frame
-            playerVelocity.y = 0f;
-        }
+            // delta time is time between frames
+            controller.Move(transform.forward * playerSpeed * Time.deltaTime);
 
-        playerVelocity.y += gravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-
-        // Player Acceleration Functionality
-        if(playerSpeed < maximumPlayerSpeed)
-        {
-            playerSpeed += Time.deltaTime * playerSpeedIncreaseRate;
-            gravity = initialGravityValue - playerSpeed;
-
-            if(animator.speed < 1.25f)
+            if (IsGrounded() && playerVelocity.y < 0)
             {
-                animator.speed += (1/playerSpeed) * Time.deltaTime;
+                // if grounded and we have gravity, it might create glitching effect
+                // this also acts as a way to reset gravity on every frame
+                playerVelocity.y = 0f;
             }
-        }
+
+            playerVelocity.y += gravity * Time.deltaTime;
+            controller.Move(playerVelocity * Time.deltaTime);
+
+            // Player Acceleration Functionality
+            if(playerSpeed < maximumPlayerSpeed)
+            {
+                playerSpeed += Time.deltaTime * playerSpeedIncreaseRate;
+                gravity = initialGravityValue - playerSpeed;
+
+                if(animator.speed < 1.25f)
+                {
+                    animator.speed += (1/playerSpeed) * Time.deltaTime;
+                }
+            }
+        }        
     }
 
     // making our own function as the character controller one is unreliable
@@ -246,6 +252,7 @@ public class PlayerController : MonoBehaviour
 
     private void GameOver()
     {
+        isGameOver = true;
         Debug.Log("Game Over");
         gameOverEvent.Invoke((int)score);
         gameObject.SetActive(false);
