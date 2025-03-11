@@ -284,10 +284,10 @@ public class PlayerController : MonoBehaviour
         }
         gameOverEvent.Invoke(finalScore);
 
-        // PlayerPrefs.SetInt("GameOver", 1); // Set the game over state
-        // PlayerPrefs.Save();
-        // Time.timeScale = 1;
-        // SceneManager.LoadSceneAsync("MainMenu");
+        PlayerPrefs.SetInt("GameOver", 1); // Set the game over state
+        PlayerPrefs.Save();
+        Time.timeScale = 1;
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 
 
