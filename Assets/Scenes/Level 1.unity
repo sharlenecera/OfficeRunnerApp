@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 30672685}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -272,6 +272,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
+  doorLayer:
+    serializedVersion: 2
+    m_Bits: 512
   animator: {fileID: 1328714438}
   slideAnimationClip: {fileID: 7400000, guid: d42c20d4df45a460687f9c38c733dd93, type: 2}
   playerSpeed: 0
@@ -1642,6 +1645,8 @@ MonoBehaviour:
   obstacles:
   - {fileID: 1887772381221813489, guid: 7acef6c3f1b5d6f45b162045d394132f, type: 3}
   - {fileID: 7602181854675208719, guid: 155f450bb33de2c4f96d377dba80b194, type: 3}
+  door: {fileID: 7602181854675208719, guid: f76ef4bf020524df69a0ec8f47614ce9, type: 3}
+  doorAppearsAfter: 2
 --- !u!4 &1241903573
 Transform:
   m_ObjectHideFlags: 0

@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private LayerMask obstacleLayer;
     [SerializeField]
+    private LayerMask doorLayer;
+    [SerializeField]
     private Animator animator;
     [SerializeField]
     private AnimationClip slideAnimationClip;
@@ -272,6 +274,11 @@ public class PlayerController : MonoBehaviour
         if (((1 << hit.collider.gameObject.layer) & obstacleLayer) != 0)
         {
             Debug.Log("Hit obstacle");
+            GameOver();
+        }
+        else if (((1 << hit.collider.gameObject.layer) & doorLayer) != 0)
+        {
+            Debug.Log("Hit door");
             GameOver();
         }
     }

@@ -16,6 +16,10 @@ public class TileSpawner : MonoBehaviour
     private List<GameObject> turnTiles;
     [SerializeField]
     private List<GameObject> obstacles;
+    [SerializeField]
+    private GameObject door;
+    [SerializeField]
+    private int doorAppearsAfter = 1; // door appears after 5 turns
 
     private Vector3 currentTileLocation = Vector3.zero;
     private Vector3 currentTileDirection = Vector3.forward; // original moving direction
@@ -43,7 +47,7 @@ public class TileSpawner : MonoBehaviour
         SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>());
     }
 
-    private void SpawnTile(Tile tile, bool spawnObstacle = false)
+    private void SpawnTile(Tile tile, bool spawnObstacle = false, bool spawnDoor = false)
     {
         // Quaternions represent rotations in Unity
         Quaternion newTileRotation = tile.gameObject.transform.rotation * Quaternion.LookRotation
@@ -51,6 +55,9 @@ public class TileSpawner : MonoBehaviour
 
         prevTile = GameObject.Instantiate(tile.gameObject, currentTileLocation, newTileRotation);
         currentTiles.Add(prevTile);
+
+        // Adding door spawning functionality
+        if (spawnDoor) SpawnDoor();
 
         if (spawnObstacle) SpawnObstacle();
 
@@ -102,16 +109,24 @@ public class TileSpawner : MonoBehaviour
 
         currentTileLocation += tilePlacementScale; // Change tile location to new location
 
-        // Now spawn a random amount of straight tiles after this turn tile
-
-        int currentPathLength = Random.Range(minimumStraightTiles, maximumStraightTiles);
-        for (int i=0 ; i<currentPathLength ; i++)
+        // Now spawn a random amount of straight tiles after this turn tile if door is not spawning
+        if (doorAppearsAfter != 0)
         {
-            SpawnTile(startingTile.GetComponent<Tile>(), (i == 0) ? false : true); // do not spawn obstacle on first tile
+            int currentPathLength = Random.Range(minimumStraightTiles, maximumStraightTiles);
+            for (int i=0 ; i<currentPathLength ; i++)
+            {
+                SpawnTile(startingTile.GetComponent<Tile>(), (i == 0) ? false : true,false);
+                // do not spawn obstacle on first tile
+            }
+        }
+        else // spawn door if doorAppearsAfter is == 0
+        {
+            SpawnTile(startingTile.GetComponent<Tile>(), false, true);
         }
 
         // Spawn a random turn tile
         SpawnTile(SelectRandomGameObjectFromList(turnTiles).GetComponent<Tile>(), false);
+        doorAppearsAfter--;
     }
 
     private void SpawnObstacle()
@@ -125,6 +140,19 @@ public class TileSpawner : MonoBehaviour
         GameObject obstacle = Instantiate(obstaclePrefab, currentTileLocation, newObjectRotation);
         currentObstacles.Add(obstacle);
 
+    }
+
+    private void SpawnDoor()
+    {
+        Quaternion newObjectRotation = door.gameObject.transform.rotation * Quaternion.LookRotation
+            (currentTileDirection, Vector3.up);
+
+        GameObject doorToSpawn = Instantiate(door, currentTileLocation, newObjectRotation);
+        // Adjust the position to make the door touch the tile floor
+        Vector3 doorPosition = doorToSpawn.transform.position;
+        doorPosition.y -= 2f;
+        // doorPosition.y += doorToSpawn.GetComponent<Renderer>().bounds.extents.y; // Adjust based on the door's height
+        doorToSpawn.transform.position = doorPosition;
     }
 
     private GameObject SelectRandomGameObjectFromList(List<GameObject> list)
