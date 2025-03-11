@@ -929,7 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd131f80c9b44f21a7e056f9b5b3598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelMapCanvas: {fileID: 0}
+  levelMapCanvas: {fileID: 1091643669}
 --- !u!1 &559874174
 GameObject:
   m_ObjectHideFlags: 0
