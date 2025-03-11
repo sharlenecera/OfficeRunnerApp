@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5448095414796675707}
   - component: {fileID: 7249385762769589445}
   - component: {fileID: 3027740898251683143}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 7602181853717043541}
   - component: {fileID: 7602181853717043542}
   - component: {fileID: 7602181853717043543}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7602181854675208718}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
