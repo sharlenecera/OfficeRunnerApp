@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     [SerializeField]
-    private GameObject gameOverCanvas;
-    [SerializeField]
     private TextMeshProUGUI scoreText;
 
     private int score = 0;
@@ -18,11 +16,10 @@ public class GameOver : MonoBehaviour
         // putting it at 0.5f halves the speed
         //      Time.timeScale = 0f;
         // wont use it though since we disabled the player on game over
-        gameOverCanvas.SetActive(true);
         this.score = score;
         scoreText.text = "Score: " + score.ToString();
     }
-    
+
     public void AddXP()
     {
 
