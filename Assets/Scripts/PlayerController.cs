@@ -256,11 +256,13 @@ public class PlayerController : MonoBehaviour
         isGameOver = true;
         Debug.Log("Game Over");
         // gameOverEvent.Invoke((int)score);
-        gameObject.SetActive(false);
+        Time.timeScale = 0; // alternative to below
+        // gameObject.SetActive(false);
 
         UnlockNewLevel();
         PlayerPrefs.SetInt("GameOver", 1); // Set the game over state
         PlayerPrefs.Save();
+        Time.timeScale = 1;
         SceneManager.LoadSceneAsync("MainMenu");
     }
 
