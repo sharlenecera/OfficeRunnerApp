@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!IsGrounded(20f)) // shoots raycast with length 20
         {
-            Debug.Log("Update");
+            Debug.Log("Fall off tile");
             GameOver();
             return;
         }
