@@ -8,9 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 61cc72876743a4d9bb1c8cdc07bd408e
-  - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+  - enabled: 0
+    path: Assets/Scenes/PracticeScence.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Level 1.unity
+    guid: 840c5e8b1e29e4e20a1ead2134a5b1f1
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 1e0c12f818aa444cf96fd13ca6ae4ae8
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: de67a3877367f4e16ac9a2fbd389fec1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

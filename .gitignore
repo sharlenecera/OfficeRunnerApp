@@ -72,3 +72,17 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Unity Collaborate
+/[Cc]ollab/
+
+# Unity Cache Server
+/[Cc]ache/
+
+# Additional log files
+*.log
+
+# Local environment settings
+.env
+.env.local
+.env.*.local
